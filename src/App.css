@@ -165,7 +165,7 @@
 
 .menu-specials-section {
   background-color: #ffffff;
-  padding: 2.5rem;
+  padding: 6rem 2rem; /* Increased top/bottom padding from 2.5rem to 5rem */
 }
 
 .menu-specials {
@@ -175,9 +175,9 @@
 
 .menu-special {
   background-color: var(--third-color);
-  padding: 1rem;
-  border-radius: 3rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 12rem;
+  border-radius: 13rem;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   width: calc(30% - 2rem);
   margin-bottom: 2.5rem;
 }
@@ -358,17 +358,145 @@
 /* Carousel Menu */
 /* Adjustments for Carousel Menu */
 
-.menu-special-image {
-  height: 20rem; /* Adjust the height as needed */
-  width: 100%; /* Ensure the image takes the full width of its container */
-  object-fit: cover; /* Ensure the image covers the container while maintaining its aspect ratio */
+/* ==========================================================================
+   Carousel Menu (Updated for React-Slick & New Component Structure)
+   ========================================================================== */
+
+/* Header section to align the title and 'Online Menu' button */
+.specials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
 }
 
+.specials-header h2 {
+  color: var(--second-color);
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.menu-button {
+  background-color: var(--first-color);
+  color: var(--second-color);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.8rem 1.5rem;
+  border-radius: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.menu-button:hover {
+  background-color: #E0B60A;
+}
+
+/* Slick slider spacing patch */
+.custom-carousel {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Force each individual card to slide clean and act as a flex container */
+.menu-special-card {
+  background-color: var(--third-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex !important; /* Overrides slick slide block default */
+  flex-direction: column;
+  height: 480px; /* Forces uniform card heights across uneven text length */
+  margin: 0 12px; /* Smooth padding gutters between carousel items */
+}
+
+/* Image wrapper control */
+.card-image-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.menu-special-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.menu-special-card:hover .menu-special-image {
+  transform: scale(1.04); /* Subtle visual micro-interaction on hover */
+}
+
+/* Body content area of the slider cards */
 .menu-special-content {
-  padding: .6rem; /* Add padding to the content for spacing */
-  text-align: center; /* Center-align text content */
-  max-width: 90%; /* Limit the width of text content */
-  margin: auto; /* Center the content horizontally */
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Automatically stretches to fill card space */
+  justify-content: space-between; /* Ensures delivery links stick cleanly to bottom */
+  text-align: left; /* Shifted to match professional UI design standards */
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.card-header h3 {
+  color: var(--second-color);
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.special-price {
+  color: #EE9972; /* Traditional Little Lemon highlight color scheme */
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.menu-special-content p {
+  color: #495E57;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Safely clips text descriptions if they get too wordy */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.delivery-link {
+  color: var(--second-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto; /* Always pins to bottom */
+  transition: color 0.2s ease;
+}
+
+.delivery-link:hover {
+  color: var(--first-color);
+}
+
+/* Custom alignment overrides for Slick layout buttons */
+.slick-prev, .slick-next {
+  z-index: 2;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.slick-prev {
+  left: -25px !important;
+}
+
+.slick-next {
+  right: -25px !important;
 }
 
 /* Menu Page */
@@ -420,10 +548,13 @@
   gap: 2rem;
 }
 
+/* Update this block in your stylesheet */
 .menu-image {
-  width: 300px;
-  max-width: 100%;
-  height:fit-content;
+  width: 100%;           /* Fills the card side cleanly */
+  max-width: 300px;      /* Keeps your desired width cap */
+  height: 200px;         /* Forces an exact uniform height for ALL items */
+  object-fit: cover;     /* Crops the Greek Salad perfectly without stretching it */
+  object-position: center; /* Ensures the focus remains on the food */
   border-radius: 8px;
 }
 
@@ -712,218 +843,201 @@
   color: var(--first-color);
 }
 
-/* Checkout Page */
-.checkout-container {
-  max-width: 40rem;
-  margin: 0 auto;
-  padding: 5rem;
-  color: var(--second-color);
-  border-radius: 8px;
-  text-align: center; /* Center the text */
-}
+/* ==========================================================================
+   Checkout Page Layout & Refinements
+   ========================================================================== */
 
-.checkout-container h2 {
-  color: var(--second-color);
-}
-
-.checkout-list {
-  list-style: none;
-  background-color: var(--third-color);
-  padding: 10px;
-  border-radius: 8px;
-  margin: 0 0 10px; /* Add margin for space between each card */
-}
-
-.checkout-container li {
-  list-style: none;
-  padding: 0;
-  background-color: var(--third-color);
-  border-bottom: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-  margin: 0 0 20px; /* Add margin for space between each card */
-}
-
-.checkout-item {
-  display: flex;
-  align-items: center;
-}
-
-.checkout-image-container {
-  margin-right: 20px;
-}
-
-.checkout-image {
-  width: 300px;
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.checkout-details {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .7rem;
-  margin-right: .5rem;
-}
-
-.checkout-details button {
-  color: var(--second-color);
-}
-
-.checkout-container p {
-  margin: 10px;
-}
-
-
-.checkout-container button {
-  background-color: var(--second-color-dark);
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-top: 2rem;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-.checkout-container button:hover {
-  background-color: #45a049;
-}
-
-.checkout-container .total-price {
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.quantity-buttons button {
-  margin: 0 5px;
-}
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .container {
-    grid-template-rows: 1fr 2fr 1fr;
-  }
-}
-
-
-
-.slick-dots li {
-  /* Set the background color of the dots */
-  background-color: var(--second-color); /* Change to the color you want */
-  /* Set the color of the dots */
-  color: var(--first-color); /* Change to the color you want */
-  /* Set other styles like border, padding, etc. */
-  border-radius: 50%; /* Make the dots circular */
-  width: 10px; /* Adjust the width of the dots */
-  height: 10px; /* Adjust the height of the dots */
-}
-
-.slick-dots button:hover {
-  /* Set the background color of the dots on hover */
-  background-color: var(--first-color); /* Change to the hover color you want */
-  border-radius: 50%; /* Make the dots circular */
-
-}
-
-.slick-arrow.slick-prev{
- background-color: var(--second-color);
- border-radius: 100%; /* Make the dots circular */
-
-}
-.slick-arrow.slick-next{
-  background-color: var(--second-color);
-  border-radius: 100%; /* Make the dots circular */
- 
- }
- 
- .orderfood {
-  width: 30%;
-  padding: 1rem;
-  border: none;
-  border-radius: 4px;
-  background-color: var(--first-color);
-  color: #fff;
-  cursor: pointer;
-  text-align: center; /* Center the text */
-  color: var(--second-color);
-}
-
-.orderfood:hover button {
-  background-color: var(--second-color);
-}
-
-
-
-/* Checkout Container */
+/* Core Component Container wrapper */
 .checkout-containerr {
   display: flex;
   flex-direction: column;
   align-items: center;
   color: var(--second-color);
   border-radius: 8px;
-  text-align: center; /* Center the text */
+  text-align: center;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.checkout-containerr .tip-section {
-  border-top: .3rem solid var(--second-color); /* Adjust the color and thickness as needed */
-  width: 35rem;
-  margin-top: 2rem;
-  padding-top: 1rem;
-  margin-bottom: 2rem; /* Adjust margin bottom to add space between the line and the content below */
-}
-/* Radio Buttons */
-input[type="radio"] {
-  margin-right: .6rem;
+.checkout-containerr h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Tip Input Field */
-input[type="number"] {
-  width: 3rem;
-  padding: 5px;
-  border: 1px solid var(--second-color);
-  border-radius: 5px;
+/* Individual Cart Card Items Box */
+.checkout-card {
+  width: 100%;
+  max-width: 40rem;
+  margin-top: 1.5rem;
 }
 
-/* Total Price */
-.total-price {
+.checkout-list {
+  list-style: none;
+  background-color: var(--third-color);
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.checkout-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* 1. Explicitly size the bounding box wrapper */
+.checkout-image-container {
+  flex-shrink: 0;       /* Prevents the image slot from being squished by text */
+  width: 100px;         /* Forces a uniform width */
+  height: 100px;        /* Forces a uniform height */
+  overflow: hidden;     /* Hides any pixels that spill out */
+  border-radius: 8px;   /* Smooth rounded corners */
+  background-color: #f0f0f0; /* Soft fallback background while loading */
+}
+
+/* 2. Control how the image behaves inside that box */
+.checkout-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* The Magic Trick: Crops and scales without stretching */
+  object-position: center; /* Centers the crop so you don't lose the main subject */
+}
+
+/* Re-organized item copy stack */
+.checkout-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.checkout-details h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+}
+
+/* Micro-incrementer Quantity Controls */
+.quantity-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.quantity-buttons button {
+  background-color: var(--second-color);
+  color: white !important;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
 }
 
-/* Checkboxes */
-.cbox {
-  margin-top: 1rem;
+.quantity-buttons button:hover {
+  background-color: var(--second-color-dark);
 }
 
-.cbox input[type="checkbox"] {
-  margin-right: 17px;
+/* Financial Settlement Breakdown Layout */
+.checkout-containerr .tip-section {
+  border-top: .3rem solid var(--second-color);
+  width: 100%;
+  max-width: 40rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-/* Input Fields */
+/* Form Membership Wrapper Panel */
+.membership-form-group {
+  width: 100%;
+  max-width: 28rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  background: var(--third-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
 
+/* Responsive Fluid Input Overrides */
+.checkout-containerr input[type="text"],
+.checkout-containerr input[type="email"],
+.checkout-containerr input[type="password"] {
+  width: 100%;
+  max-width: 25rem;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccd1d0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: white;
+}
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 30%;
+.checkout-containerr input[type="text"]:focus,
+.checkout-containerr input[type="email"]:focus,
+.checkout-containerr input[type="password"]:focus {
+  border-color: var(--second-color);
+  outline: none;
+}
+
+/* Number input adjustments */
+.checkout-containerr input[type="number"] {
+  width: 4.5rem;
   padding: 8px;
-  margin-bottom: 10px;
   border: 1px solid var(--second-color);
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-align: center;
+  margin-left: 0.5rem;
 }
 
-/* Reserve Button */
+/* Submission Trigger Core */
 .orderfood {
   background-color: var(--first-color);
-  color: white;
-  padding: 10px 20px;
+  color: var(--second-color) !important;
+  padding: 14px 32px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 1.1rem;
+  width: 100%;
+  max-width: 20rem;
+  transition: transform 0.1s ease, background-color 0.2s ease;
 }
 
 .orderfood:hover {
-  background-color: var(--second-color-dark);
+  background-color: #E0B60A;
+  transform: translateY(-1px);
+}
+
+.orderfood:active {
+  transform: translateY(0);
+}
+
+/* Highly specific rule to override any conflicting 'height: auto' or 'fit-content' styles */
+.checkout-containerr .checkout-image-container {
+  width: 100px !important;
+  height: 100px !important;
+  flex-shrink: 0 !important;
+  overflow: hidden !important;
+  border-radius: 8px !important;
+}
+
+.checkout-containerr .checkout-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
 }
